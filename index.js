@@ -1,7 +1,8 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const Todo = require('./models/Todo');
+dotenv.config();
 
 const app = express();
 const port = 3000 || process.env.PORT;
