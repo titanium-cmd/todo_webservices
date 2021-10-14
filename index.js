@@ -56,7 +56,8 @@ app.get('/todos/:id', async (req, res)=>{
 
 //create a todo
 app.post('/', async (req, res)=>{
-  const todo = Todo.create(req.body);
+  const todo = await Todo.create(req.body);
+  
   if(todo){
     return res.status(200).json({
       status: true,
@@ -72,8 +73,8 @@ app.post('/', async (req, res)=>{
 });
 
 //del one todo
-app.delete('/todos/:id', (req, res)=>{
-  const todo = Todo.findByIdAndDelete(req.params._id);
+app.delete('/todos/:id', async (req, res)=>{
+  const todo = await Todo.findByIdAndDelete(req.params._id);
   if(todo){
     return res.status(200).json({
       status: true,
@@ -89,9 +90,9 @@ app.delete('/todos/:id', (req, res)=>{
 });
 
 //patch one todo
-app.patch('/todos/:id', (req, res)=>{
+app.patch('/todos/:id', async (req, res)=>{
   const { status } = req.body;
-  const todo = Todo.findByIdAndUpdate(req.params._id, { status });
+  const todo = await Todo.findByIdAndUpdate(req.params._id, { status });
   if(todo){
     return res.status(200).json({
       status: true,
