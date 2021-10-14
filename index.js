@@ -5,8 +5,7 @@ const Todo = require('./models/Todo');
 dotenv.config();
 
 const app = express();
-const port = 3000 || process.env.PORT;
-
+const port = 2000 || process.env.PORT;
 app.use(express.json());
 
 mongoose.connect(process.env.DB_URL, {
