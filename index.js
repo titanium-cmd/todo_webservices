@@ -1,18 +1,25 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const Todo = require('./models/Todo');
 
 const app = express();
-const port = 4000;
+const port = 4000 || process.env.PORT;
 
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost/todos_db', {
+mongoose.connect(process.env.DB_URL, {
 }).then(()=>{
   console.log('Database connected');
 });
 
 //get all todos
+app.get('/', async (req, res)=>{
+  return res.status(200).json({
+    message: 'Welcome to todo API webservcies',
+  });
+});
+
 app.get('/todos', async (req, res)=>{
   const todos = await Todo.find({});
   if(todos){
