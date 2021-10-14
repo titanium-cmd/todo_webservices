@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const TodoModel = require('./schemas/todo_schema');
+const Todo = require('./models/Todo');
 
 const app = express();
 const port = 4000;
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/todos_db', {
 
 //get all todos
 app.get('/todos', async (req, res)=>{
-  const todos = await TodoModel.find({});
+  const todos = await Todo.find({});
   if(todos){
     return res.status(200).json({
       status: true,
@@ -32,7 +32,7 @@ app.get('/todos', async (req, res)=>{
 //get one todo
 app.get('/todos/:id', async (req, res)=>{
   const { id } = req.params;
-  const todo = await TodoModel.findById(id);
+  const todo = await Todo.findById(id);
   if(todo){
     return res.status(200).json({
       status: true,
@@ -49,7 +49,7 @@ app.get('/todos/:id', async (req, res)=>{
 
 //create a todo
 app.post('/', async (req, res)=>{
-  const todo = TodoModel.create(req.body);
+  const todo = Todo.create(req.body);
   if(todo){
     return res.status(200).json({
       status: true,
@@ -66,7 +66,7 @@ app.post('/', async (req, res)=>{
 
 //del one todo
 app.delete('/todos/:id', (req, res)=>{
-  const todo = TodoModel.findByIdAndDelete(req.params._id);
+  const todo = Todo.findByIdAndDelete(req.params._id);
   if(todo){
     return res.status(200).json({
       status: true,
@@ -84,7 +84,7 @@ app.delete('/todos/:id', (req, res)=>{
 //patch one todo
 app.patch('/todos/:id', (req, res)=>{
   const { status } = req.body;
-  const todo = TodoModel.findByIdAndUpdate(req.params._id, { status });
+  const todo = Todo.findByIdAndUpdate(req.params._id, { status });
   if(todo){
     return res.status(200).json({
       status: true,
