@@ -11,7 +11,7 @@ app.use(express.json());
 mongoose.connect(process.env.DB_URL, {
 }).then(()=>{
   console.log('Database connected');
-});
+}).catch((e)=>console.log('db connection err', e.message));
 
 //get all todos
 app.get('/', async (req, res)=>{
